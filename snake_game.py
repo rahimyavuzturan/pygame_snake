@@ -5,9 +5,17 @@ from collections import namedtuple
 
 pygame.init()
 
-Point = namedtuple('Point', 'x', 'y')
+Point = namedtuple('Point', 'x,y')
+
+#RGB COLORS
+WHITE = (255,255,255)
+RED = (200,0,0)
+BLACK = (0,0,0)
+BLUE1 = (0,0,255)
+BLUE2 = (0,100,255)
 
 BLOCK_SIZE = 20
+SPEED = 40
 
 class Direction(Enum):
     RIGHT = 1
@@ -55,11 +63,16 @@ class SnakeGame():
 
         # 4. hareket et ya da _place_food (yemeği yemiş)
         
-        # 5. ui ve clock güncelle 
+        # 5. ui ve clock güncelle
+        self.update_ui()
+        self.clock.tick(SPEED) 
 
         # 6. oyun bitişini ve sonucu döndür
         game_over = False
         return game_over, self.score
+    
+    def update_ui(self):
+        self.display.fill(BLACK)
 
 if __name__ == '__main__':
     game = SnakeGame()
