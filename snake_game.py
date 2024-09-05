@@ -17,7 +17,7 @@ class Direction(Enum):
 
 class SnakeGame():
     # en ve boy
-    def __init__(self, w = 640, h=480):
+    def __init__(self, w = 640, h = 480):
         self.w = w
         self.h = h
     
@@ -38,7 +38,12 @@ class SnakeGame():
         self.food = None
         self._place_food()
 
-        
+    def _place_food(self):
+        x=random.randint(0,(self.w-BLOCK_SIZE)//BLOCK_SIZE)*BLOCK_SIZE
+        y=random.randint(0,(self.h-BLOCK_SIZE)//BLOCK_SIZE)*BLOCK_SIZE
+        self.food = Point(x,y)
+        if self.food in self.snake:
+            self._place_food()  
 
 
     def play_step(self):
