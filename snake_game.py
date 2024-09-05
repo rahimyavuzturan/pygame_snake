@@ -47,15 +47,29 @@ class SnakeGame():
 
 
     def play_step(self):
-        pass
+        # 1. user input al
+
+        # 2. hareketi yap
+
+        # 3. oyunun bitip bitmediğini kontrol et
+
+        # 4. hareket et ya da _place_food (yemeği yemiş)
+        
+        # 5. ui ve clock güncelle 
+
+        # 6. oyun bitişini ve sonucu döndür
+        game_over = False
+        return game_over, self.score
 
 if __name__ == '__main__':
     game = SnakeGame()
 
     # loop
     while True:
-        game.play_step()
+        game_over, score = game.play_step()
 
         #oyun bitişi kontrolü
+        if game_over == True:
+            break   #döngüden çıkış
 
     pygame.quit()
