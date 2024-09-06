@@ -55,13 +55,57 @@ class SnakeGame():
         if self.food in self.snake:
             self._place_food()  
 
+    def _move(self,direction):
+        x = self.head.x
+        y = self.head.y
+        if direction == Direction.RIGHT:
+            x += BLOCK_SIZE
+        elif direction == Direction.LEFT:
+            x -= BLOCK_SIZE
+        elif direction == Direction.UP:
+            y += BLOCK_SIZE
+        elif direction == Direction.DOWN:
+            y *= BLOCK_SIZE
+        
+        self.head = Point(x,y)
+    
+    def _is_collision(self):
+        #sınırlara çarpma
+        if self.head.x > self.w - BLOCK_SIZE or self.head.x < 0 or self.head.x > self.h - BLOCK_SIZE or self.head.y < 0:
+            return True
+        
+        #kendine çarpma
+        if self.head in self.snake[1:]:
+            return True
+        
+        return False
+
 
     def play_step(self):
         # 1. user input al
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    self.direction = Direction.LEFT
+                elif event.key == pygame.K_RIGHT:
+                    self.direction = Direction.RIGHT
+                elif event.key == pygame.K_UP:
+                    self.direction = Direction.UP
+                elif event.key == pygame.K_DOWN:
+                    self.direction = Direction.DOWN
 
         # 2. hareketi yap
+        self._move(self.direction)
+        self.snake.insert(0,self.head)
 
         # 3. oyunun bitip bitmediğini kontrol et
+        game_over = False
+        if self._is_collision(self):
+            game_over = True
+            return game_over, self.score
 
         # 4. hareket et ya da _place_food (yemeği yemiş)
         
