@@ -10,14 +10,14 @@ font = pygame.font.Font('arial.ttf',25)
 Point = namedtuple('Point', 'x, y')
 
 #RGB COLORS
-WHITE = (255,255,255)
+WHITE = (0 ,0 ,0 )
 FOOD = (232, 184, 109)
 BACKGROUND = (241, 243, 194)
 SNAKE_OUTLINE = (161, 214, 178)
-SNAKE_INLINE = (206, 223, 159)
+SNAKE_INLINE = (181, 223, 178)
 
 BLOCK_SIZE = 20
-SPEED = 5
+SPEED = 40
 
 class Direction(Enum):
     RIGHT = 1
