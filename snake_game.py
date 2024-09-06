@@ -17,7 +17,7 @@ BLUE1 = (0,0,255)
 BLUE2 = (0,100,255)
 
 BLOCK_SIZE = 20
-SPEED = 40
+SPEED = 20
 
 class Direction(Enum):
     RIGHT = 1
@@ -103,11 +103,17 @@ class SnakeGame():
 
         # 3. oyunun bitip bitmediğini kontrol et
         game_over = False
-        if self._is_collision(self):
+        if self._is_collision():
             game_over = True
             return game_over, self.score
 
-        # 4. hareket et ya da _place_food (yemeği yemiş)
+        # 4. hareket et (head ileri gittiği için kuyruk silincek) ya da _place_food (yemeği yemiş)
+        if self.head == self.food:
+            self.score += 1
+            self._place_food()
+        else:
+            self.snake.pop()
+        
         
         # 5. ui ve clock güncelle
         self.update_ui()
