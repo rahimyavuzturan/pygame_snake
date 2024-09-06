@@ -7,7 +7,7 @@ pygame.init()
 
 font = pygame.font.Font('arial.ttf',25)
 
-Point = namedtuple('Point', 'x,y')
+Point = namedtuple('Point', 'x, y')
 
 #RGB COLORS
 WHITE = (255,255,255)
@@ -63,15 +63,15 @@ class SnakeGame():
         elif direction == Direction.LEFT:
             x -= BLOCK_SIZE
         elif direction == Direction.UP:
-            y += BLOCK_SIZE
+            y -= BLOCK_SIZE
         elif direction == Direction.DOWN:
-            y *= BLOCK_SIZE
+            y += BLOCK_SIZE
         
         self.head = Point(x,y)
     
     def _is_collision(self):
         #sınırlara çarpma
-        if self.head.x > self.w - BLOCK_SIZE or self.head.x < 0 or self.head.x > self.h - BLOCK_SIZE or self.head.y < 0:
+        if self.head.x > self.w - BLOCK_SIZE or self.head.x < 0 or self.head.y > self.h - BLOCK_SIZE or self.head.y < 0:
             return True
         
         #kendine çarpma
@@ -116,19 +116,19 @@ class SnakeGame():
         
         
         # 5. ui ve clock güncelle
-        self.update_ui()
+        self._update_ui()
         self.clock.tick(SPEED) 
 
         # 6. oyun bitişini ve sonucu döndür
         game_over = False
         return game_over, self.score
     
-    def update_ui(self):
+    def _update_ui(self):
         self.display.fill(BLACK)
 
         for pt in self.snake:
             pygame.draw.rect(self.display,BLUE1, pygame.Rect(pt.x,pt.y,BLOCK_SIZE,BLOCK_SIZE)) # 20 ye 20 rectangle
-            pygame.draw.rect(self.display,BLUE1, pygame.Rect(pt.x+4,pt.y+4,12,12)) # x+4 konumundan 12 ye 12 rectanngle
+            pygame.draw.rect(self.display,BLUE2, pygame.Rect(pt.x+4,pt.y+4,12,12)) # x+4 konumundan 12 ye 12 rectanngle
 
         pygame.draw.rect(self.display,RED,pygame.Rect(self.food.x,self.food.y,BLOCK_SIZE,BLOCK_SIZE))
 
