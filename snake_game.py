@@ -11,13 +11,13 @@ Point = namedtuple('Point', 'x, y')
 
 #RGB COLORS
 WHITE = (255,255,255)
-RED = (200,0,0)
-BLACK = (0,0,0)
-BLUE1 = (0,0,255)
-BLUE2 = (0,100,255)
+FOOD = (232, 184, 109)
+BACKGROUND = (241, 243, 194)
+SNAKE_OUTLINE = (161, 214, 178)
+SNAKE_INLINE = (206, 223, 159)
 
 BLOCK_SIZE = 20
-SPEED = 20
+SPEED = 5
 
 class Direction(Enum):
     RIGHT = 1
@@ -38,6 +38,7 @@ class SnakeGame():
 
         #başlangıç durumları
         self.direction = Direction.RIGHT
+        self.old_direction = Direction.RIGHT
 
         self.head = Point(self.w/2 , self.h/2)
         self.snake = [self.head,
@@ -83,6 +84,7 @@ class SnakeGame():
 
     def play_step(self):
         # 1. user input al
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -124,13 +126,13 @@ class SnakeGame():
         return game_over, self.score
     
     def _update_ui(self):
-        self.display.fill(BLACK)
+        self.display.fill(BACKGROUND)
 
         for pt in self.snake:
-            pygame.draw.rect(self.display,BLUE1, pygame.Rect(pt.x,pt.y,BLOCK_SIZE,BLOCK_SIZE)) # 20 ye 20 rectangle
-            pygame.draw.rect(self.display,BLUE2, pygame.Rect(pt.x+4,pt.y+4,12,12)) # x+4 konumundan 12 ye 12 rectanngle
+            pygame.draw.rect(self.display,SNAKE_OUTLINE, pygame.Rect(pt.x,pt.y,BLOCK_SIZE,BLOCK_SIZE)) # 20 ye 20 rectangle
+            pygame.draw.rect(self.display,SNAKE_INLINE, pygame.Rect(pt.x+4,pt.y+4,12,12)) # x+4 konumundan 12 ye 12 rectanngle
 
-        pygame.draw.rect(self.display,RED,pygame.Rect(self.food.x,self.food.y,BLOCK_SIZE,BLOCK_SIZE))
+        pygame.draw.rect(self.display,FOOD,pygame.Rect(self.food.x,self.food.y,BLOCK_SIZE,BLOCK_SIZE))
 
         text = font.render("Score: " + str(self.score),True,WHITE)
         self.display.blit(text, [0,0])
