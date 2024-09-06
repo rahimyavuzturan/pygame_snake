@@ -5,6 +5,8 @@ from collections import namedtuple
 
 pygame.init()
 
+font = pygame.font.Font('arial.ttf',25)
+
 Point = namedtuple('Point', 'x,y')
 
 #RGB COLORS
@@ -73,6 +75,14 @@ class SnakeGame():
     
     def update_ui(self):
         self.display.fill(BLACK)
+
+        for pt in self.snake:
+            pygame.draw(self.display,BLUE1, pygame.Rect(pt.x,pt.y,BLOCK_SIZE,BLOCK_SIZE)) # 20 ye 20 rectangle
+            pygame.draw(self.display,BLUE1, pygame.Rect(pt.x+4,pt.y+4,12,12)) # x+4 konumundan 12 ye 12 rectanngle
+
+        pygame.draw(self.display,RED,pygame.Rect(self.food.x,self.food.y,BLOCK_SIZE,BLOCK_SIZE))
+
+        text = font.render("Score: " + str(self.score))
 
 if __name__ == '__main__':
     game = SnakeGame()
